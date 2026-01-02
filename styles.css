@@ -1,0 +1,433 @@
+/* ===========================
+   My Places PWA — Curved Blocks UI
+   Replace your entire styles.css with this file
+   =========================== */
+
+:root{
+  --bg: #0b0c10;
+  --surface: rgba(255,255,255,.06);
+  --surface2: rgba(255,255,255,.09);
+  --surface3: rgba(255,255,255,.12);
+  --text: #f5f7ff;
+  --muted: rgba(245,247,255,.72);
+  --border: rgba(255,255,255,.14);
+  --border2: rgba(255,255,255,.20);
+  --shadow: 0 16px 40px rgba(0,0,0,.38);
+  --shadow2: 0 10px 28px rgba(0,0,0,.28);
+
+  /* Curvy, “block” aesthetic */
+  --r-lg: 24px;   /* big blocks */
+  --r-md: 20px;   /* cards */
+  --r-sm: 16px;   /* buttons, small elements */
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color: var(--text);
+  background:
+    radial-gradient(1100px 560px at 10% 0%, rgba(255,255,255,.09), transparent 60%),
+    radial-gradient(900px 520px at 90% 20%, rgba(255,255,255,.06), transparent 55%),
+    var(--bg);
+}
+
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+button{ font: inherit; }
+
+/* ===========================
+   Layout containers
+   =========================== */
+
+.container{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px 16px 34px;
+}
+
+/* ===========================
+   Home page header
+   =========================== */
+
+.pageHeader{
+  margin: 10px 0 14px;
+}
+
+.pageTitle{
+  margin:0;
+  font-size: 30px;
+  letter-spacing: .2px;
+  font-weight: 900;
+}
+
+.pageSub{
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ===========================
+   Home big blocks
+   =========================== */
+
+.homeGrid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.bigLinkCard{
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface2), var(--surface));
+  box-shadow: var(--shadow);
+  padding: 18px 16px;
+  min-height: 120px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap: 8px;
+
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.bigLinkCard:hover{
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, var(--surface3), var(--surface));
+  border-color: var(--border2);
+}
+
+.bigLinkTitle{
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: .2px;
+}
+
+.bigLinkSub{
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ===========================
+   Top bar (category pages)
+   =========================== */
+
+.topBar{
+  position: sticky;
+  top: 0;
+  z-index: 25;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+
+  padding: 12px 12px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(11,12,16,.90);
+  backdrop-filter: blur(10px);
+}
+
+.topTitle{
+  margin:0;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: .2px;
+}
+
+.hamburger,
+.topHomeLink{
+  width: 46px;
+  height: 42px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.08);
+  color: var(--text);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow: var(--shadow2);
+}
+
+.hamburger{
+  cursor:pointer;
+  font-size: 18px;
+}
+
+.hamburger:hover,
+.topHomeLink:hover{
+  background: rgba(255,255,255,.11);
+  border-color: var(--border2);
+}
+
+/* ===========================
+   Dropdown menu (hamburger)
+   =========================== */
+
+.menuPanel{
+  display:none;
+
+  position: sticky;
+  top: 66px; /* just under top bar */
+  z-index: 20;
+
+  margin: 10px 12px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: rgba(11,12,16,.94);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+
+  overflow:hidden;
+}
+
+.menuPanel.isOpen{
+  display:block;
+  animation: drop .18s ease-out;
+}
+
+@keyframes drop{
+  from{ transform: translateY(-6px); opacity: .2; }
+  to{ transform: translateY(0); opacity: 1; }
+}
+
+.menuItem{
+  display:block;
+  padding: 14px 16px;
+  color: var(--muted);
+  font-weight: 700;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.menuItem:first-child{
+  border-top:none;
+}
+
+.menuItem:hover{
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+}
+
+.menuItem.isActive{
+  color: var(--text);
+  font-weight: 900;
+  background: rgba(255,255,255,.07);
+}
+
+/* ===========================
+   Category blocks row
+   =========================== */
+
+.categoryBlocks{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0 12px;
+}
+
+.categoryBlock{
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface2), var(--surface));
+  box-shadow: var(--shadow2);
+
+  padding: 14px 10px;
+  text-align:center;
+  font-weight: 900;
+  letter-spacing: .15px;
+  color: var(--muted);
+
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.categoryBlock:hover{
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, var(--surface3), var(--surface));
+  border-color: var(--border2);
+  color: var(--text);
+}
+
+.categoryBlock.isActive{
+  color: var(--text);
+  border-color: var(--border2);
+  background: rgba(255,255,255,.12);
+}
+
+/* ===========================
+   Place cards grid
+   =========================== */
+
+.hintText{
+  margin: 12px 0 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.cardGrid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.placeCard{
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface2), var(--surface));
+  box-shadow: var(--shadow);
+  overflow:hidden;
+
+  display:flex;
+  flex-direction:column;
+  min-height: 280px;
+
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+}
+
+.placeCard:hover{
+  transform: translateY(-1px);
+  border-color: var(--border2);
+  background: linear-gradient(180deg, var(--surface3), var(--surface));
+}
+
+.placeImage{
+  height: 150px;
+  background: rgba(255,255,255,.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.placeImage img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imagePlaceholder{
+  color: var(--muted);
+  border: 1px dashed rgba(255,255,255,.22);
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+}
+
+.placeBody{
+  padding: 13px 14px 16px;
+}
+
+.placeName{
+  margin:0;
+  font-size: 16px;
+  font-weight: 950;
+  letter-spacing: .2px;
+}
+
+.placeDesc{
+  margin: 8px 0 10px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.placeMeta{
+  color: rgba(245,247,255,.60);
+  font-size: 12px;
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+
+@media (max-width: 720px){
+  .homeGrid{ grid-template-columns: 1fr; }
+  .cardGrid{ grid-template-columns: 1fr; }
+  .categoryBlocks{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pageTitle{ font-size: 26px; }
+  .menuPanel{ margin: 10px 12px 0; top: 64px; }
+}
+
+/* ===========================
+   Featured big block (ski page)
+   =========================== */
+
+.featuredBlock{
+  margin: 10px 0 16px;
+}
+
+.featuredCard{
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 0;
+
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface2), var(--surface));
+  box-shadow: var(--shadow);
+  overflow:hidden;
+
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+}
+
+.featuredCard:hover{
+  transform: translateY(-1px);
+  border-color: var(--border2);
+  background: linear-gradient(180deg, var(--surface3), var(--surface));
+}
+
+.featuredImage{
+  min-height: 220px;
+  background: rgba(255,255,255,.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.featuredImage img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+.featuredBody{
+  padding: 18px 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.featuredTitle{
+  margin:0;
+  font-size: 22px;
+  font-weight: 950;
+  letter-spacing: .2px;
+}
+
+.featuredDesc{
+  margin: 10px 0 14px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.featuredMeta{
+  font-size: 13px;
+  color: rgba(245,247,255,.65);
+}
+
+/* Mobile layout */
+@media (max-width: 720px){
+  .featuredCard{
+    grid-template-columns: 1fr;
+  }
+  .featuredImage{
+    min-height: 180px;
+  }
+}

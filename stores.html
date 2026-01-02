@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stores</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body data-category="stores">
+  <header class="topBar">
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" data-menu-button>☰</button>
+    <h1 class="topTitle">Stores</h1>
+    <a class="topHomeLink" href="index.html" aria-label="Back to Home">⌂</a>
+  </header>
+
+  <nav class="menuPanel" data-menu-panel>
+    <a href="restaurants.html" class="menuItem">Restaurants</a>
+    <a href="onsen.html" class="menuItem">Onsen</a>
+    <a href="ski.html" class="menuItem">Ski Resorts</a>
+    <a href="stores.html" class="menuItem isActive">Stores</a>
+  </nav>
+
+  <main class="container">
+    <section class="categoryBlocks">
+      <a class="categoryBlock" href="restaurants.html">🍜 Restaurants</a>
+      <a class="categoryBlock" href="onsen.html">♨️ Onsen</a>
+      <a class="categoryBlock" href="ski.html">⛷️ Ski Resorts</a>
+      <a class="categoryBlock isActive" href="stores.html">🛍️ Stores</a>
+    </section>
+
+    <section class="cardGrid" id="placesGrid"></section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
