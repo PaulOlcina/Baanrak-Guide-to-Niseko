@@ -607,3 +607,7 @@ button{ font: inherit; }
   border-radius: var(--r-sm);
   font-size: 14px;
 }
+
+.categoryBlocks{
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
