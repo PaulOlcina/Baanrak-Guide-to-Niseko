@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Small admin-only styling, matches your aesthetic */
+    .adminWrap{ max-width: 980px; margin:0 auto; padding:18px 16px 34px; }
+    .adminCard{
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.06));
+      box-shadow: 0 16px 40px rgba(0,0,0,.38);
+      padding: 16px;
+      margin: 14px 0;
+    }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; }
+    .field{ display:flex; flex-direction:column; gap:6px; flex:1; min-width:220px; }
+    .input, .select, .textarea{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.07);
+      color: rgba(245,247,255,.95);
+      padding: 10px 12px;
+      outline: none;
+    }
+    .textarea{ min-height: 88px; resize: vertical; }
+    .btn{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.10);
+      color: rgba(245,247,255,.95);
+      padding: 10px 12px;
+      font-weight: 900;
+      cursor:pointer;
+    }
+    .btn:hover{ background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.2); }
+    .btnDanger{ background: rgba(255,80,80,.12); border-color: rgba(255,80,80,.22); }
+    .btnDanger:hover{ background: rgba(255,80,80,.18); }
+    .muted{ color: rgba(245,247,255,.72); font-size: 14px; }
+    .list{ display:flex; flex-direction:column; gap:10px; }
+    .item{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      padding: 12px;
+    }
+    .itemTitle{ font-weight: 950; margin:0; }
+    .itemMeta{ margin-top:6px; font-size: 13px; color: rgba(245,247,255,.65); }
+    .itemBtns{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .notice{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      padding: 10px 12px;
+      margin-top: 10px;
+      font-size: 14px;
+      color: rgba(245,247,255,.80);
+    }
+    .hidden{ display:none; }
+  </style>
+</head>
+
+<body>
+  <header class="topBar">
+    <h1 class="topTitle">Admin</h1>
+    <a class="topHomeLink" href="index.html" aria-label="Back to Home">⌂</a>
+  </header>
+
+  <main class="adminWrap">
+
+    <!-- LOGIN -->
+    <section class="adminCard" id="loginCard">
+      <h2 style="margin:0 0 8px;">Sign in</h2>
+      <p class="muted" style="margin:0 0 14px;">
+        Only approved editors can add/edit places.
+      </p>
+
+      <div class="row">
+        <div class="field">
+          <label>Email</label>
+          <input class="input" id="loginEmail" type="email" placeholder="name@email.com" />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input class="input" id="loginPassword" type="password" placeholder="••••••••" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <button class="btn" id="loginBtn" type="button">Log in</button>
+      </div>
+
+      <div class="notice hidden" id="loginMsg"></div>
+    </section>
+
+    <!-- ADMIN -->
+    <section class="adminCard hidden" id="adminCard">
+      <div class="row" style="align-items:center; justify-content:space-between;">
+        <div>
+          <h2 style="margin:0;">Places Editor</h2>
+          <div class="muted" id="whoami"></div>
+        </div>
+        <button class="btn" id="logoutBtn" type="button">Log out</button>
+      </div>
+
+      <div class="notice" id="roleMsg" style="margin-top:12px;">
+        Loading permissions…
+      </div>
+    </section>
+
+    <!-- ADD / EDIT FORM -->
+    <section class="adminCard hidden" id="formCard">
+      <h3 style="margin:0 0 10px;" id="formTitle">Add new place</h3>
+
+      <div class="row">
+        <div class="field">
+          <label>Name</label>
+          <input class="input" id="fName" placeholder="Place name" />
+        </div>
+        <div class="field">
+          <label>Category</label>
+          <select class="select" id="fCategory">
+            <option value="restaurants">restaurants</option>
+            <option value="onsen">onsen</option>
+            <option value="ski">ski</option>
+            <option value="stores">stores</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Subcategory</label>
+          <input class="input" id="fSubcategory" placeholder="e.g. ramen / slope map status" />
+        </div>
+        <div class="field">
+          <label>Sort order (optional)</label>
+          <input class="input" id="fSort" type="number" placeholder="e.g. 1" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Maps URL</label>
+          <input class="input" id="fMaps" placeholder="https://maps.google.com/..." />
+        </div>
+        <div class="field">
+          <label>Image URL (optional)</label>
+          <input class="input" id="fImage" placeholder="https://...jpg or local file name" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <textarea class="textarea" id="fDesc" placeholder="Short description"></textarea>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <button class="btn" id="saveBtn" type="button">Save</button>
+        <button class="btn btnDanger hidden" id="cancelEditBtn" type="button">Cancel edit</button>
+      </div>
+
+      <div class="notice hidden" id="formMsg"></div>
+    </section>
+
+    <!-- LIST -->
+    <section class="adminCard hidden" id="listCard">
+      <div class="row" style="align-items:center; justify-content:space-between;">
+        <h3 style="margin:0;">All places</h3>
+        <button class="btn" id="refreshBtn" type="button">Refresh</button>
+      </div>
+      <p class="muted" style="margin:8px 0 12px;">
+        Tip: Keep descriptions short so cards look clean.
+      </p>
+
+      <div class="list" id="placesList"></div>
+      <div class="notice hidden" id="listMsg"></div>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
